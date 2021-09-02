@@ -1,7 +1,9 @@
 # アプリケーションコード修正（商品情報検索画面）
-当手順では以下の赤枠部分の内、商品情報検索画面の画面レイアウトをwidget_tweaksプラグインを使用してスタイルを適用し綺麗にします。
+当手順では以下赤枠部分の内、商品情報検索画面の入力フォームにCSSを適用します。
 
-![](./img/22.png)
+CSS適用に際して、widget_tweaksプラグインを使用しますので、その説明も併せて行います。
+
+![](./img/27.png)
 
 ## 当画面に関連するソースファイル
 
@@ -13,7 +15,9 @@
 
 
 ## Template（HTML）の修正
-各フォーム項目表示用コンポーネントを作成し、作成したコンポーネントを検索画面に表示されるよう修正します。
+各フォーム項目表示用コンポーネントを作成し、そのコンポーネントを検索画面に表示されるよう修正します。
+
+なお、コンポーネント内でwidget_tweaksを使用します。
 
 >templates\product\component\product_field.html
 
@@ -21,7 +25,7 @@
 {% load widget_tweaks %}
 
 <label for={{ field.id_for_label }} class="form-label">
-    {% if label %}{{ label }}{% else %}{{ field.label }}{% endif %}
+    {{ field.label }}
 </label>
 
 {% if field.errors %}
@@ -34,6 +38,14 @@
     <div id="{{ field.id_for_label }}" class="invalid-feedback">{{ err_msg }}</div>
 {% endfor %}
 ```
+
+- ポイント
+  
+  widget_tweaksプラグインを読み込むことで、該当HTMLで使用することが可能です。
+
+  以下のようにrender_fieldタグで表示したい項目を囲み、class指定をしてあげることでHTMLを書くようにCSSを適用することが出来ます。
+
+  ```{% render_field field class="form-control" %}```
 
 
 >templates\product\product_search.html - 15Line~
