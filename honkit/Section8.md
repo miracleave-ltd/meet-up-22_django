@@ -5,6 +5,17 @@
 
 問題の回答についても用意しておりますので、ぜひ問題にトライしてみましょう！
 
+**今回用意したテストファイル**
+- `app/product/test/conftest.py`<br>
+pytestでテスト実行する際のDBアクセス設定を共通部品として記述しています。
+- `app/product/test/crud_test.py`<br>
+データのCreate, Read, Updateのテストを記述しています。
+- `app/product/test/views_test.py`<br>
+Viewに対しテストコードを記述する為、pytest-djangoという拡張機能を使用します。<br>
+・正しいtemplateを使用しているか<br>
+・正しいステータスコードが返却されているか<br>
+についてのテストを実施します。
+
 ## Pytestの挙動
 Pytestはターミナル上で以下のコマンドを実行すると、自動でテストコードを感知し実行してくれます。
 ```sh
@@ -23,11 +34,11 @@ pytest app/product/tests.py
 
 ### 【テスト失敗時】
 テストに失敗してしまった際にも同様にターミナルへ出力されますが、
-以下のように**どこの箇所**で**どんなエラー**が発生しているかを教えてくれます。赤字で表示されているところに注目してみましょう！
+以下のように**どこの箇所**で**どんなエラー**が発生しているかを教えてくれます！
 
 ![](./img/Pytest_sc01_result-error.png)
 
-赤字で表示されている箇所では、
+上記の画像では、
 - 「test_create」 関数で
 - 「assert result == expected」の箇所で
 - 「AssertionError」のエラー（例外）が発生している
