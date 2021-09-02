@@ -1,5 +1,5 @@
 {% extends "common/base.html" %}
-
+{% load static %}
 {% block title %}
 トップページ
 {% endblock title %}
@@ -10,6 +10,7 @@
 
 {% block content %}
 <div class="container">
-TODO ここに会社ロゴや、menamo・ミララビへのリンクなどの宣伝内容書いた方がおしゃれ？
+<img src="{% static 'image/mira-top.png' %}">
+TODO ここに会社HPや、menamo・ミララビへのリンクなど置きたい
 </div>
 {% endblock content %}
