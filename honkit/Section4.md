@@ -45,8 +45,6 @@ CSS適用に際して、widget_tweaksプラグインを使用しますので、�
 
   以下のようにrender_fieldタグで表示したい項目を囲み、class指定をしてあげることでHTMLを書くようにCSSを適用することが出来ます。
 
-  ```{% render_field field class="form-control" %}```
-
 
 >templates\product\product_search.html - 15Line~
 
