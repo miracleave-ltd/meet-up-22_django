@@ -7,7 +7,7 @@ def test_create(cursor):
     cursor.execute(insert_query)
 
     # 件数確認
-    counts_query = "select count(1) from product_product;"
+    counts_query = "select count(1) from product_product where code = 99;"
     cursor.execute(counts_query)
     result = cursor.fetchone()[0]
     # 1件のデータを入れたため1件の結果を想定
@@ -24,7 +24,7 @@ def test_read(cursor):
     cursor.execute(insert_query)
 
     # データ取得
-    select_query = "select * from product_product;"
+    select_query = "select * from product_product where code = 99;"
     cursor.execute(select_query)
     result = cursor.fetchall()
 
