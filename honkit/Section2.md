@@ -55,4 +55,4 @@ docker-compose run web python manage.py createsuperuser
 
 上記までの手順で、ブラウザに以下URLを入力することで画面を参照することが出来ます。
 
-http://localhost:8000
+http://localhost:7777

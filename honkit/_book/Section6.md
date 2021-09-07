@@ -73,7 +73,7 @@ if settings.DEBUG:
 ## 画面確認
 以下URLをブラウザへ入力し画面を表示します。
 
-http://localhost:8000
+http://localhost:7777
 
 商品情報登録画面にて画像のアップロードが出来るようになりました。
 
