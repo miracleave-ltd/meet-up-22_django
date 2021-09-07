@@ -287,7 +287,7 @@
 <ul>
 <li>対象ファイル：<code>app/product/test/crud_test.py</code><br></li>
 <li>対象関数：<code>test_create</code><br></li>
-<li>テスト内容：1件のデータを登録し、登録されているデータ数が1件であることを確認しています。<br></li>
+<li>テスト内容：1件のデータを登録し、登録したデータが1件であることを確認しています。<br></li>
 <li>エラー内容：期待しているデータ件数が取得したデータ件数と一致していない。（期待値の設定箇所<code>expected</code>）</li>
 </ul>
 <pre><code class="lang-sh">cursor = &lt;sqlite3.Cursor object at 0x7f2f585ec340&gt;
@@ -297,7 +297,7 @@
         cursor.execute(insert_query)
 
         <span class="hljs-comment"># 件数確認</span>
-        counts_query = <span class="hljs-string">&quot;select count(1) from product_product;&quot;</span>
+        counts_query = <span class="hljs-string">&quot;select count(1) from product_product where code = 99;&quot;</span>
         cursor.execute(counts_query)
         result = cursor.fetchone()[0]
         <span class="hljs-comment"># 1件のデータを入れたため1件の結果を想定</span>
@@ -434,7 +434,7 @@ urlpatterns = [
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"6. Pytest エラーの修正 -問題-","level":"1.7","depth":1,"next":{"title":"7. Pytest エラーの修正 -回答-","level":"1.8","depth":1,"path":"Section10.md","ref":"Section10.md","articles":[]},"previous":{"title":"5. Pytest","level":"1.6","depth":1,"path":"Section8.md","ref":"Section8.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search-pro-fixed","-lunr","-search","hide-published-with","anchors","navigator","collapsible-chapters","hints","copy-code-button","custom-favicon","insert-logo"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"collapsible-chapters":{},"hints":{"info":"fa fa-info-circle","tip":"fa fa-mortar-board","danger":"fa fa-exclamation-circle","working":"fa fa-wrench"},"search-pro-fixed":{},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"./img/miracleave.ico","navigator":{},"custom-favicon":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"insert-logo":{"url":"./img/miracleave.png","style":"background: none; width: 100%;"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"mirameet","language":"ja","gitbook":"*"},"file":{"path":"Section9.md","mtime":"2021-09-07T00:16:36.212Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-09-07T00:26:53.546Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"6. Pytest エラーの修正 -問題-","level":"1.7","depth":1,"next":{"title":"7. Pytest エラーの修正 -回答-","level":"1.8","depth":1,"path":"Section10.md","ref":"Section10.md","articles":[]},"previous":{"title":"5. Pytest","level":"1.6","depth":1,"path":"Section8.md","ref":"Section8.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search-pro-fixed","-lunr","-search","hide-published-with","anchors","navigator","collapsible-chapters","hints","copy-code-button","custom-favicon","insert-logo"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"collapsible-chapters":{},"hints":{"info":"fa fa-info-circle","tip":"fa fa-mortar-board","danger":"fa fa-exclamation-circle","working":"fa fa-wrench"},"search-pro-fixed":{},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"./img/miracleave.ico","navigator":{},"custom-favicon":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"insert-logo":{"url":"./img/miracleave.png","style":"background: none; width: 100%;"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"mirameet","language":"ja","gitbook":"*"},"file":{"path":"Section9.md","mtime":"2021-09-07T12:59:06.111Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-09-07T13:02:28.994Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

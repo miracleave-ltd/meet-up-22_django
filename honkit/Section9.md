@@ -19,7 +19,7 @@ docker-compose exec web pytest
 ### Question１
 - 対象ファイル：`app/product/test/crud_test.py`<br>
 - 対象関数：`test_create`<br>
-- テスト内容：1件のデータを登録し、登録されているデータ数が1件であることを確認しています。<br>
+- テスト内容：1件のデータを登録し、登録したデータが1件であることを確認しています。<br>
 - エラー内容：期待しているデータ件数が取得したデータ件数と一致していない。（期待値の設定箇所`expected`）
 
 ```sh
@@ -28,14 +28,14 @@ cursor = <sqlite3.Cursor object at 0x7f2f585ec340>
     def test_create(cursor):
         insert_query = "insert into product_product values('99','テストプラン','これはテストプランです', '99999', '2021-08-18','2021-08-19','createuser','updateuser');"
         cursor.execute(insert_query)
-    
+
         # 件数確認
-        counts_query = "select count(1) from product_product;"
+        counts_query = "select count(1) from product_product where code = 99;"
         cursor.execute(counts_query)
         result = cursor.fetchone()[0]
         # 1件のデータを入れたため1件の結果を想定
         expected = 2
-    
+
         print("result:{}".format(result))
         print("expected:{}".format(expected))
 >       assert result == expected
