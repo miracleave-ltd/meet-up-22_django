@@ -68,7 +68,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='product/product_top.html'), name='top'),
     path('search/', ProductSearchListView.as_view(), name='product_search'),
     # 追記
-    path('detail/<int:pk>', ProductDetailView.as_view(), name='product_detail'),
+    path('detail/<str:pk>', ProductDetailView.as_view(), name='product_detail'),
 ]
 ```
 
