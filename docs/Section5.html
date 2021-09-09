@@ -278,17 +278,17 @@
 <h2 id="当画面に関連するソースファイル">2. 当画面に関連するソースファイル</h2>
 <ul>
 <li>app\product\views\product_detail_view.py <strong>←修正対象</strong></li>
-<li>app\product\urls.py</li>
-<li>templates\product\product_detail.html <strong>←修正対象</strong></li>
+<li>app\product\urls.py <strong>←修正対象</strong></li>
+<li>templates\product\product_detail.html</li>
 <li>templates\product\product_search.html <strong>←修正対象</strong></li>
 </ul>
 <h2 id="Template（HTML）の修正">3. Template（HTML）の修正</h2>
 <p>templates\product\product_search.htmlの51Line目付近へ、詳細ボタン押下時に呼び出されるURL定義を追記します。</p>
 <p>変更前</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-info&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;detail&quot;</span>&gt;</span>詳細<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-info&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;detail&quot;</span>&gt;</span>詳細<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
 </code></pre>
 <p>変更後</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;{% url &apos;product:product_detail&apos; pk=object.code %}&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-info&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;detail&quot;</span>&gt;</span>詳細<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;{% url &apos;product:product_detail&apos; pk=object.code %}&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-outline-info&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;detail&quot;</span>&gt;</span>詳細<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
 </code></pre>
 <p>※ここまでの手順で検索画面にて、検索ボタンを押下するとどうなるか見てみましょう。</p>
 <h2 id="viewの修正">4. viewの修正</h2>
@@ -305,16 +305,20 @@
 <p>app\product\urls.py に詳細画面用のviewをインポートし</p>
 <p>urlpatternsに詳細画面へ遷移する為のURL文字列とインポートしたviewを設定します。</p>
 <pre><code class="lang-python"><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path
+<span class="hljs-keyword">from</span> app.product.views.product_create_view <span class="hljs-keyword">import</span> CreateProductView
+<span class="hljs-keyword">from</span> app.product.views.product_update_view <span class="hljs-keyword">import</span> ProductUpdateView
 <span class="hljs-keyword">from</span> app.product.views.product_search_view <span class="hljs-keyword">import</span> ProductSearchListView
+<span class="hljs-keyword">from</span> django.views.generic <span class="hljs-keyword">import</span> TemplateView
 <span class="hljs-comment"># 追記</span>
 <span class="hljs-keyword">from</span> app.product.views.product_detail_view <span class="hljs-keyword">import</span> ProductDetailView
-<span class="hljs-keyword">from</span> django.views.generic <span class="hljs-keyword">import</span> TemplateView
 
 app_name = <span class="hljs-string">&apos;product&apos;</span>
 
 urlpatterns = [
     path(<span class="hljs-string">&apos;&apos;</span>, TemplateView.as_view(template_name=<span class="hljs-string">&apos;product/product_top.html&apos;</span>), name=<span class="hljs-string">&apos;top&apos;</span>),
     path(<span class="hljs-string">&apos;search/&apos;</span>, ProductSearchListView.as_view(), name=<span class="hljs-string">&apos;product_search&apos;</span>),
+    path(<span class="hljs-string">&apos;create/&apos;</span>, CreateProductView.as_view(), name=<span class="hljs-string">&apos;product_create&apos;</span>),
+    path(<span class="hljs-string">&apos;update/&lt;int:pk&gt;/&apos;</span>, ProductUpdateView.as_view(), name=<span class="hljs-string">&apos;product_update&apos;</span>),
     <span class="hljs-comment"># 追記</span>
     path(<span class="hljs-string">&apos;detail/&lt;str:pk&gt;&apos;</span>, ProductDetailView.as_view(), name=<span class="hljs-string">&apos;product_detail&apos;</span>),
 ]
@@ -454,7 +458,7 @@ urlpatterns = [
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"4. アプリケーションコード修正（商品情報詳細画面）","level":"1.5","depth":1,"next":{"title":"5. Pytest","level":"1.6","depth":1,"path":"Section8.md","ref":"Section8.md","articles":[]},"previous":{"title":"3. アプリケーションコード修正（商品情報検索画面）","level":"1.4","depth":1,"path":"Section4.md","ref":"Section4.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search-pro-fixed","-lunr","-search","hide-published-with","anchors","navigator","collapsible-chapters","hints","copy-code-button","custom-favicon","insert-logo"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"collapsible-chapters":{},"hints":{"info":"fa fa-info-circle","tip":"fa fa-mortar-board","danger":"fa fa-exclamation-circle","working":"fa fa-wrench"},"search-pro-fixed":{},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"./img/miracleave.ico","navigator":{},"custom-favicon":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"insert-logo":{"url":"./img/miracleave.png","style":"background: none; width: 100%;"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"mirameet","language":"ja","gitbook":"*"},"file":{"path":"Section5.md","mtime":"2021-09-08T03:34:32.199Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-09-08T03:43:24.800Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"4. アプリケーションコード修正（商品情報詳細画面）","level":"1.5","depth":1,"next":{"title":"5. Pytest","level":"1.6","depth":1,"path":"Section8.md","ref":"Section8.md","articles":[]},"previous":{"title":"3. アプリケーションコード修正（商品情報検索画面）","level":"1.4","depth":1,"path":"Section4.md","ref":"Section4.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search-pro-fixed","-lunr","-search","hide-published-with","anchors","navigator","collapsible-chapters","hints","copy-code-button","custom-favicon","insert-logo"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"collapsible-chapters":{},"hints":{"info":"fa fa-info-circle","tip":"fa fa-mortar-board","danger":"fa fa-exclamation-circle","working":"fa fa-wrench"},"search-pro-fixed":{},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"./img/miracleave.ico","navigator":{},"custom-favicon":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"insert-logo":{"url":"./img/miracleave.png","style":"background: none; width: 100%;"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"mirameet","language":"ja","gitbook":"*"},"file":{"path":"Section5.md","mtime":"2021-09-09T12:03:06.082Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-09-09T12:06:33.698Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
