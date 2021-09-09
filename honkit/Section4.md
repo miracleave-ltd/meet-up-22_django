@@ -46,15 +46,13 @@ CSS適用に際して、widget_tweaksプラグインを使用しますので、�
   以下のようにrender_fieldタグで表示したい項目を囲み、class指定をしてあげることでHTMLを書くようにCSSを適用することが出来ます。
 
 
->templates\product\product_search.html - 15Line~
+>templates\product\product_search.html - 15Line ~ 17Line
 
 変更前
 
 ```html
     <div class="card-body">
-        <div class="row">
-            {{ filter.form.as_p }}
-        </div>
+        {{ filter.form.as_p }}
     </div>
 ```
 

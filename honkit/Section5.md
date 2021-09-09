@@ -12,8 +12,8 @@
 ## 当画面に関連するソースファイル
 
 - app\product\views\product_detail_view.py **←修正対象**
-- app\product\urls.py
-- templates\product\product_detail.html **←修正対象**
+- app\product\urls.py **←修正対象**
+- templates\product\product_detail.html
 - templates\product\product_search.html **←修正対象**
 
 
@@ -23,13 +23,13 @@ templates\product\product_search.htmlの51Line目付近へ、詳細ボタン押�
 変更前
 
 ```html
-<a href="#" type="button" class="btn btn-outline-info" name="detail">詳細</a>
+<td><a href="#" type="button" class="btn btn-outline-info" name="detail">詳細</a></td>
 ```
 
 変更後
 
 ```html
-<a href="{% url 'product:product_detail' pk=object.code %}" type="button" class="btn btn-outline-info" name="detail">詳細</a>
+<td><a href="{% url 'product:product_detail' pk=object.code %}" type="button" class="btn btn-outline-info" name="detail">詳細</a></td>
 ```
 
 ※ここまでの手順で検索画面にて、検索ボタンを押下するとどうなるか見てみましょう。
@@ -57,16 +57,20 @@ urlpatternsに詳細画面へ遷移する為のURL文字列とインポートし
 
 ```python
 from django.urls import path
+from app.product.views.product_create_view import CreateProductView
+from app.product.views.product_update_view import ProductUpdateView
 from app.product.views.product_search_view import ProductSearchListView
+from django.views.generic import TemplateView
 # 追記
 from app.product.views.product_detail_view import ProductDetailView
-from django.views.generic import TemplateView
 
 app_name = 'product'
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='product/product_top.html'), name='top'),
     path('search/', ProductSearchListView.as_view(), name='product_search'),
+    path('create/', CreateProductView.as_view(), name='product_create'),
+    path('update/<int:pk>/', ProductUpdateView.as_view(), name='product_update'),
     # 追記
     path('detail/<str:pk>', ProductDetailView.as_view(), name='product_detail'),
 ]
